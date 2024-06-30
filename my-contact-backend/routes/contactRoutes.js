@@ -13,7 +13,7 @@ router.route("/").get(getContact);
 
 router.route("/").post(createContact);
 
-router.route("/:id").get(getIndivualId);
+router.route('/:id').get(getIndivualId);
 
 router.route("/:id").put(updateContact);
 
