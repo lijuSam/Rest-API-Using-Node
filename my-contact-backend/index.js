@@ -14,6 +14,7 @@ const port = process.env.PORT || 8000;
 
 
 app.use("/api/contact", require("./routes/contactRoutes"));
+app.use("/api/user", require("./routes/userRoutes"));
 
 app.listen(port, () => {
   console.log(`Server up and running at port ${port}`);

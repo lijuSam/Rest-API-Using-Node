@@ -24,7 +24,7 @@ const createContact = asyncHandler(async (req, res, next) => {
     });
 
     res.status(201).json({
-      contact
+      contact,
     });
   } catch (err) {
     next(err); // Passes the error to the error handling middleware
@@ -32,25 +32,44 @@ const createContact = asyncHandler(async (req, res, next) => {
 });
 
 const getIndivualId = asyncHandler(async (req, res) => {
-  const contact = await Contact.findOne({ _id: req.params.id })
+  const contact = await Contact.findOne({ _id: req.params.id });
 
-  if(!contact){
-    throw new Error("Contact not found")
+  if (!contact) {
+    throw new Error("Contact not found");
   }
   res.status(200).json({
-    contact
+    contact,
   });
 });
 
 const updateContact = asyncHandler(async (req, res) => {
+  const contact = await Contact.findOne({ _id: req.params.id });
+
+  if (!contact) {
+    throw new Error("Contact not found");
+  }
+
+  const updatedContact = await Contact.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    { new: true }
+  );
   res.status(200).json({
-    message: `Updated contact ${req.params.id}`,
+    updatedContact,
   });
 });
 
 const deleteContact = asyncHandler(async (req, res) => {
+  
+  const contact = await Contact.findOne({_id : req.params.id})
+   
+  if(!contact){
+    throw new Error("Contact not found");
+  }
+   await Contact.findOneAndDelete()
+
   res.status(200).json({
-    message: `deleted the  contact ${req.params.id}`,
+   contact
   });
 });
 
